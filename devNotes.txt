@@ -1,0 +1,159 @@
+>>> Activity:
+
+>>> React-Redux Art Gallery
+
+>>> In this activity,
+<<< you will be building a Redux-equipped React application to mimic the functionality from our previous art gallery project.
+
+>>> Our objective will be to get additional practice writing Redux applications,
+<<< and increase our depth of familiarity with Redux as a tool.
+
+>>> Specifically,
+<<< you will be writing a practical Thunk to store API data in the Redux store.
+
+>>> To get started,
+<<< clone the below repository to get the starter React app.
+
+>>> Setup
+
+>>> Instructions:
+
+>>> Click HERE for the link to the repo.
+
+>>> Fork (not clone) it to your OWN GitHub account.
+
+>>> Now to clone the repo to your machine,
+<<< click the green 'Code' button and then copy the URL.
+
+>>> In a new terminal,
+<<< or Git Bash,
+>>> go to where you want to clone the repo.
+
+>>> Type git clone in the terminal or Git Bash,
+<<< then a space,
+<<< then paste the URL you copied from your repo.
+
+>>> Example:
+git clone https://github.com/HackerUSA-CE/RR-React-Redux-Art-Gallery.git
+
+>>> Hit "Enter" or "Return" whichever is on your keyboard.
+
+>>> In your terminal,
+<<< run npm install to install the required node_modules.
+
+>>> After the install,
+<<< run npm start in the terminal.
+
+>>> Do the assignment in Visual Studio Code and stage your changes using git add -A command.
+
+>>> Make at least one commit by using git commit -m "write your message here" command.
+
+>>> Finally push your changes using the git push command.
+
+>>> We will be using the Metropolitan Museum of Art API in this application:
+https://collectionapi.metmuseum.org/public/collection/v1/objects/[insert an object id here]
+
+>>> 1) Establish the Store
+
+>>> Start by creating a new file within the applications src directory called store.js.
+
+>>> Import configureStore from the redux toolkit,
+<<< then instantiate a store object using configureStore.
+
+import {configureStore} from '@reduxjs/toolkit'
+
+export const store = configureStore ({
+    reducer: {
+
+    }
+})
+
+>>> Next,
+<<< we need to build a Slice in order to outfit our store with pertinent reducers and actions.
+
+>>> 2) Developing a Slice
+
+>>> Inside the features folder,
+<<< create a file called dataSlice.js.
+
+>>> The primary reason for this particular instance of state will be to store API data.
+
+>>> To do this,
+<<< declare an initialState object with properties of objectId 
+<<< (to drive API results) 
+<<< and apiData 
+<<< (to store the actual data from the API).
+
+>>> Next,
+<<< consider the reducers we will need for this application.
+
+>>> Recall how the API works:
+<<< if we feed an ID to the API URL,
+<<< we can expect to get different information about a particular work of art.
+
+>>> You can write as many reducers as you would like,
+<<< but at a minimum,
+<<< build reducers to handle:
+
+>>> Setting API data to state
+
+>>> Incrementing the ID by one
+
+>>> Decrementing the ID by one
+
+>>> Entering a custom ID
+
+>>> Re-setting state back to initial values
+
+>>> 3) Test your Code
+
+>>> Before building out any more functionality,
+<<< plug your Slice into the store.js file we set up earlier:
+
+import {configureStore} from '@reduxjs/toolkit'
+import dataReducer from './features/dataSlice'
+
+export const store = configureStore({
+    reducer:{
+        data: dataReducer
+    }
+})
+
+>>> Remember,
+<<< you can name your reducer anything you want.
+
+>>> Try not to name your reducer the same as a property within state,
+<<< as your code may look redundant and other engineers may be confused or read it as an error.
+
+>>> Next,
+<<< import your store to your React application
+<<< by adapting the index.js file
+<<< to include the store
+<<< and provide the data to the App.js level.
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import {store} from './store'
+import {Provider} from 'react-redux'
+
+ReactDOM.render(
+  <React.StrictMode>
+      <Provider store={store}>      
+        <App />
+      </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+>>> Now that our React app is redux-equipped,
+<<< we can test the functionality by manually writing dispatches.
+
+>>> Do so by opening your Redux devtools,
+<<< and clicking the Dispatch button:
+
+>>> Once this works,
+<<< we know that we have our Redux Store plugged in properly.
+
+>>> We should be able to trigger any reducer that we have built simply by calling on it by name,
+<<< as shown in the example.
